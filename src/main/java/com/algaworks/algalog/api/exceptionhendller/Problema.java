@@ -3,10 +3,12 @@ package com.algaworks.algalog.api.exceptionhendller;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import lombok.Data;
+
+@JsonInclude(Include.NON_NULL)
 @Data
 public class Problema {
 
