@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Data;
 
-@JsonInclude(Include.NON_NULL)
+@JsonInclude(Include.NON_NULL)//-> para quando a alguma propriedade estiver nula, não inprime na representação
 @Data
 public class Problema {
 
