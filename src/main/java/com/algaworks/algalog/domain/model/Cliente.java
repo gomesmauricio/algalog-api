@@ -27,22 +27,21 @@ public class Cliente {
 	private Long id;
 	
 	@NotBlank
-	@Size(min = 3, max = 60)
+	@Size(max = 70)
 	private String nome;
 	
 	@NotBlank
 	@Email
-	@Size(min = 3, max = 60)
+	@Size(max = 60)
 	private String email;
 	
 	@NotBlank
-	@Email
-	@Size(max = 12)
+	@Size(max = 18)
 	@Column(name = "fone")
 	private String telefone;
 	
-	public void setId(Long id) {
-		this.id = id;
-	}
+//	public void setId(Long id) {
+//		this.id = id;
+//	}
 
 }

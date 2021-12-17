@@ -14,6 +14,11 @@ public class CatalogoClienteService {
 	@Autowired
 	ClienteRepository clienteRepository;
 	
+	public Cliente buscaCliente(Long clienteId) {
+	 return clienteRepository.findById(clienteId)
+				.orElseThrow(() -> new NegocioException("Cliente não encontrado"));
+	}
+	
 	@Transactional//->declara que esse metodo deve ser executado dentro de uma transação (ou tudo ou nada se vir algo errado)
 	public Cliente salvar(Cliente cliente) {
 	boolean emailEmUso = clienteRepository.findByEmail(cliente.getEmail())
