@@ -22,7 +22,7 @@ public class Destinatario {
 	@Column(name = "destinatario_numero")
 	private String numero;
 	
-	@NotBlank
+	
 	@Column(name = "destinatario_complemento")
 	private String complemento;
 	
