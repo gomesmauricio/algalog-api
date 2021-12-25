@@ -17,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.algaworks.algalog.domain.exception.NegocioException;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -40,7 +42,7 @@ public class Entrega {
 	
 	private BigDecimal taxa;
 	
-	@OneToMany(mappedBy = "entrega", fetch = FetchType.EAGER/* ->Evita LazyInitializationExceptionexceção */ , cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "entrega", fetch = FetchType.EAGER/* ->Evita LazyInitializationException exceção */ , cascade = CascadeType.ALL)
 	private List<Ocorrencia> ocorrencias = new ArrayList<>();
 	
 	@Enumerated(EnumType.STRING)
@@ -60,5 +62,23 @@ public class Entrega {
 		
 		return ocorrencia;
 	}
+
+	public void finalizar() {
+		if (naoPodeSerFinalizada()) {
+			throw new NegocioException("Entrega não pode ser finalizada");
+		}
+		
+		setStatus(StatusEntrega.FINALIZADA);
+		setDataFinalizacao(OffsetDateTime.now());
+	}
+	
+	public boolean podeSerFinalizada() {
+		return StatusEntrega.PENDENTE.equals(getStatus());
+	}
+	
+	public boolean naoPodeSerFinalizada() {
+		return !podeSerFinalizada();
+	}
+	 
 	
 }
