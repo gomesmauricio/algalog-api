@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.algaworks.algalog.domain.exception.EntidadeNaoEncotradaExcenption;
 import com.algaworks.algalog.domain.exception.NegocioException;
 
 @ControllerAdvice
@@ -45,6 +46,18 @@ public class ApiExceptionHandller extends ResponseEntityExceptionHandler {
 		problema.setCampos(campos);
 		
 		return handleExceptionInternal(ex, problema, headers, status, request);
+	}
+	
+	@ExceptionHandler(EntidadeNaoEncotradaExcenption.class)
+	public ResponseEntity<Object> EntidadeNaoEncotrada(EntidadeNaoEncotradaExcenption ex, WebRequest request){
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		
+		var problema = new Problema();
+		problema.setStatus(status.value());
+		problema.setDataHora(OffsetDateTime.now());
+		problema.setTitulo(ex.getMessage());
+		
+		return handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
 	}
 	
 	@ExceptionHandler(NegocioException.class)

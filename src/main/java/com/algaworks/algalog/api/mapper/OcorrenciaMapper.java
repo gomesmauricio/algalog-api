@@ -1,9 +1,15 @@
 package com.algaworks.algalog.api.mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import com.algaworks.algalog.api.model.OcorrenciaModel;
+import com.algaworks.algalog.api.model.input.OcorrenciaInput;
 import com.algaworks.algalog.domain.model.Ocorrencia;
 
 import lombok.AllArgsConstructor;
@@ -16,6 +22,18 @@ public class OcorrenciaMapper {
 	
 	public OcorrenciaModel toModel(Ocorrencia ocorrencia) {
 		return modelMapper.map(ocorrencia, OcorrenciaModel.class);
+	}
+	
+	public Ocorrencia toEntity(OcorrenciaInput ocorrenciaInput) {
+		return modelMapper.map(ocorrenciaInput, Ocorrencia.class);
+		
+	}
+	
+	@Transactional
+	public List<OcorrenciaModel> toCollectionDTO(List<Ocorrencia> ocorrencias) {
+		return ocorrencias.stream()
+				.map(this::toModel)
+				.collect(Collectors.toList());
 	}
 
 }
