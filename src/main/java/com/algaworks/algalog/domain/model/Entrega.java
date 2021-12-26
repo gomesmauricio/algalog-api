@@ -79,6 +79,22 @@ public class Entrega {
 	public boolean naoPodeSerFinalizada() {
 		return !podeSerFinalizada();
 	}
-	 
+	
+	public void cancelar() {
+		if (naoPodeSerCancelada()) {
+			throw new NegocioException("Entrega não pode ser Cancelada");
+		}
+		
+		setStatus(StatusEntrega.CANCELADA);
+		setDataFinalizacao(OffsetDateTime.now());		
+	}
+	
+	public boolean podeSerCancelada() {
+		return StatusEntrega.PENDENTE.equals(getStatus());
+	}
+	
+	public boolean naoPodeSerCancelada() {
+		return !podeSerFinalizada();
+	}
 	
 }

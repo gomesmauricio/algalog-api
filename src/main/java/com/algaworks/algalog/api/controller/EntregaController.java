@@ -20,6 +20,7 @@ import com.algaworks.algalog.api.model.EntregaModel;
 import com.algaworks.algalog.api.model.input.EntregaInput;
 import com.algaworks.algalog.domain.model.Entrega;
 import com.algaworks.algalog.domain.repository.EntregaRepository;
+import com.algaworks.algalog.domain.service.CancelaEntregaService;
 import com.algaworks.algalog.domain.service.FinalizacaoEntregaService;
 import com.algaworks.algalog.domain.service.SolicitacaoEntregaService;
 
@@ -34,6 +35,8 @@ public class EntregaController {
 	private SolicitacaoEntregaService solicitacaoEntregaService;
 	private EntregaMapper entregaMapper;
 	private FinalizacaoEntregaService finalizacaoEntregaService;
+	private CancelaEntregaService cancelaEntregaService;
+	
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -60,6 +63,13 @@ public class EntregaController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void finalizar(@PathVariable Long entregaId) {
 		finalizacaoEntregaService.finalizar(entregaId);	
+		
+	}
+	
+	@PutMapping("/{entregaId}/cancelamento")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void cancelar(@PathVariable Long entregaId) {
+		cancelaEntregaService.cancelar(entregaId);	
 		
 	}
 
